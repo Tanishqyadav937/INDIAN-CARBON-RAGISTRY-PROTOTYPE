@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;1,400&display=swap');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 60 100% 98%;
+    --foreground: 45 20% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 45 20% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 45 20% 15%;
+    --primary: 45 20% 15%;
+    --primary-foreground: 60 100% 98%;
+    --secondary: 60 30% 95%;
+    --secondary-foreground: 45 20% 15%;
+    --muted: 60 30% 95%;
+    --muted-foreground: 45 10% 45%;
+    --accent: 60 30% 95%;
+    --accent-foreground: 45 20% 15%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 60 20% 90%;
+    --input: 60 20% 90%;
+    --ring: 45 20% 15%;
+    --radius: 0.75rem;
+    
+    /* Earthy color palette */
+    --tea-green-50: 60 100% 98%;
+    --tea-green-100: 45 20% 15%;
+    --tea-green-200: 45 30% 25%;
+    --tea-green-300: 45 40% 35%;
+    --tea-green-400: 45 50% 45%;
+    --tea-green-500: 60 30% 70%;
+    --tea-green-600: 60 25% 80%;
+    --tea-green-700: 60 20% 85%;
+    --tea-green-800: 60 15% 90%;
+    --tea-green-900: 60 10% 95%;
+    
+    --beige-50: 60 100% 98%;
+    --beige-100: 45 25% 15%;
+    --beige-200: 45 35% 25%;
+    --beige-300: 45 45% 35%;
+    --beige-400: 45 55% 45%;
+    --beige-500: 60 35% 80%;
+    --beige-600: 60 30% 85%;
+    --beige-700: 60 25% 90%;
+    --beige-800: 60 20% 93%;
+    --beige-900: 60 15% 97%;
+    
+    --cornsilk-50: 60 100% 98%;
+    --cornsilk-100: 45 30% 15%;
+    --cornsilk-200: 45 40% 25%;
+    --cornsilk-300: 45 50% 35%;
+    --cornsilk-400: 45 60% 45%;
+    --cornsilk-500: 60 40% 85%;
+    --cornsilk-600: 60 35% 88%;
+    --cornsilk-700: 60 30% 91%;
+    --cornsilk-800: 60 25% 94%;
+    --cornsilk-900: 60 20% 97%;
+    
+    --papaya-whip-50: 60 100% 98%;
+    --papaya-whip-100: 45 25% 15%;
+    --papaya-whip-200: 45 35% 25%;
+    --papaya-whip-300: 45 45% 35%;
+    --papaya-whip-400: 45 55% 45%;
+    --papaya-whip-500: 60 35% 80%;
+    --papaya-whip-600: 60 30% 85%;
+    --papaya-whip-700: 60 25% 90%;
+    --papaya-whip-800: 60 20% 93%;
+    --papaya-whip-900: 60 15% 97%;
+    
+    --buff-50: 60 100% 98%;
+    --buff-100: 30 25% 15%;
+    --buff-200: 30 35% 25%;
+    --buff-300: 30 45% 35%;
+    --buff-400: 30 55% 45%;
+    --buff-500: 30 40% 60%;
+    --buff-600: 30 35% 70%;
+    --buff-700: 30 30% 80%;
+    --buff-800: 30 25% 85%;
+    --buff-900: 30 20% 90%;
+  }
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+  
+  .font-display {
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  .font-sans {
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  .font-mono {
+    font-family: 'Geist Mono', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  }
+  
+  .font-title {
+    font-family: 'Instrument Serif', 'Times New Roman', serif;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .bg-gradient-premium {
+    background: linear-gradient(135deg, hsl(var(--stone-50)) 0%, hsl(var(--stone-100)) 100%);
+  }
+  
+  .shadow-premium {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .shadow-premium-lg {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  .shadow-premium-xl {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Scroll reveal animations */
+  .scroll-reveal-hidden {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  
+  .scroll-reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  /* Image loading animations */
+  .image-loading {
+    background: linear-gradient(90deg, 
+      #f5f7ef 25%, 
+      #ebeedf 50%, 
+      #f5f7ef 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Intersection observer fallback */
+  @supports not (scroll-behavior: smooth) {
+    .scroll-reveal-visible {
+      transition: none;
+    }
+  }
+}

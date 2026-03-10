@@ -1,0 +1,298 @@
+# India Carbon Registry - LLM Documentation
+
+## Project Overview
+This is a full-stack carbon credit registry platform for India, designed to manage carbon credit projects, user authentication, and transaction tracking. The system serves as a blockchain-like database for carbon credits with comprehensive project management capabilities.
+
+## Core Purpose
+- **Carbon Credit Registry**: Track and manage carbon credit projects across India
+- **User Management**: Handle developers, verifiers, admins, and regular users
+- **Transaction System**: Manage credit issuance, trading, and retirement
+- **Project Verification**: Complete lifecycle management from draft to completion
+- **Dashboard Analytics**: Real-time statistics and project monitoring
+- **Email Verification**: Complete email-based authentication system
+
+## Tech Stack
+
+### Backend (Node.js/Express)
+- **Runtime**: Node.js with ES modules
+- **Framework**: Express.js for REST API
+- **Database**: MongoDB with Mongoose ODM
+- **Authentication**: JWT tokens with bcryptjs password hashing
+- **Validation**: express-validator for input validation
+- **Security**: Helmet, CORS, express-rate-limit
+- **Email**: Nodemailer for verification and notification emails
+- **File Upload**: Multer for document handling
+- **Utilities**: UUID, crypto for token generation
+
+### Frontend (React/TypeScript)
+- **Framework**: React 18 with TypeScript
+- **Build Tool**: Vite for fast development and building
+- **Styling**: Tailwind CSS with custom design system
+- **UI Components**: Radix UI primitives for accessibility
+- **Icons**: Lucide React icon library
+- **Forms**: react-hook-form for form management
+- **Charts**: Recharts for data visualization
+- **State Management**: React hooks (useState, useEffect)
+- **Animations**: tailwindcss-animate for smooth transitions
+
+### Development Tools
+- **TypeScript**: Strict type checking and modern JS features
+- **ESLint**: Code linting and quality enforcement
+- **PostCSS**: CSS processing with Tailwind
+- **Path Aliases**: @/ for src directory imports
+- **Nodemon**: Auto-restart for backend development
+
+## Architecture
+
+### Backend Structure
+```
+backend/src/
+├── config/
+│   └── database.js          # MongoDB connection with fallback detection
+├── controllers/
+│   └── authController.js    # Authentication logic (register, login, verify)
+├── middleware/
+│   ├── auth.js             # JWT authentication middleware
+│   └── errorHandler.js     # Global error handling
+├── models/
+│   ├── User.js             # User schema with roles and verification
+│   ├── Project.js          # Carbon project schema with credits tracking
+│   └── Transaction.js      # Credit transaction schema
+├── routes/
+│   ├── auth.js             # Authentication endpoints
+│   ├── projects.js         # Project management endpoints
+│   └── dashboard.js        # Dashboard statistics endpoints
+├── utils/
+│   ├── email.js            # Email sending utilities (Nodemailer)
+│   ├── jwt.js              # JWT token generation
+│   ├── mockData.js         # Fallback data when DB unavailable
+│   └── seed.js             # Database seeding script
+└── server.js               # Main server entry point
+```
+
+### Frontend Structure
+```
+src/
+├── components/
+│   ├── ui/                 # Reusable UI components (Radix-based)
+│   │   ├── button.tsx
+│   │   ├── card.tsx
+│   │   ├── input.tsx
+│   │   ├── label.tsx
+│   │   └── badge.tsx
+│   ├── LandingPage.tsx     # Public landing page
+│   ├── LoginPage.tsx       # User login interface
+│   ├── SignupPage.tsx      # User registration interface
+│   ├── Dashboard.tsx       # Main user dashboard
+│   ├── VerifyEmailPage.tsx # Email verification interface
+│   ├── ForgotPasswordPage.tsx # Password reset request
+│   └── ResetPasswordPage.tsx  # Password reset form
+├── lib/
+│   └── utils.ts            # Utility functions (cn helper)
+├── types/                  # TypeScript type definitions
+├── App.tsx                 # Main app component with routing
+├── main.tsx               # React app entry point
+└── index.css              # Global styles and CSS variables
+```
+
+## Database Schema
+
+### User Model
+- **Authentication**: Email/password with bcrypt hashing (12 salt rounds)
+- **Roles**: user, admin, verifier, developer
+- **Organization**: Name, type (Government, Corporate, NGO, Individual, Research), registration number
+- **Profile**: Avatar, phone, address details (street, city, state, country, pincode)
+- **Verification**: Email verification with tokens and expiration
+- **Security**: Login attempts tracking, account lockout (5 attempts, 2-hour lockout)
+- **Status**: active, inactive, suspended
+- **Timestamps**: Created/updated timestamps
+
+### Project Model
+- **Identification**: Auto-generated project ID (ICR-YYYY-NNNN format)
+- **Details**: Title, description, project type, methodology (name, version, reference)
+- **Location**: Country (default India), state, district, coordinates, address
+- **Timeline**: Start/end dates, crediting period (years)
+- **Carbon Credits**: Estimated annual, total estimated, generated, issued, traded, retired
+- **Status**: Draft → Under Review → Validation Required → Validated → Registered → Active → Monitoring → Verification Required → Verified → Completed → Suspended → Rejected
+- **Verification**: Validator reference, validation date, certification body, verification reports
+- **Documents**: Name, type (PDD, Monitoring Report, Verification Report, Certificate, Other), URL, upload date, uploaded by
+- **Financials**: Project cost, currency (default INR), funding source, expected revenue
+- **Sustainability**: SDG goals (1-17), co-benefits, environmental/social impact
+- **Monitoring**: Last/next monitoring dates, monitoring frequency (Monthly, Quarterly, Semi-Annual, Annual)
+
+### Transaction Model
+- **Identification**: Auto-generated transaction ID (TXN-YYYY-NNNNNN format)
+- **Type**: issuance, transfer, retirement, cancellation
+- **Participants**: From/to user references
+- **Credits**: Amount, price per credit, total amount, currency (INR, USD, EUR)
+- **Retirement**: Beneficiary, purpose, retirement date (required for retirement/cancellation)
+- **Status**: pending, completed, failed, cancelled
+- **Verification**: Verification status, verifier reference, verification date, notes
+- **Metadata**: Serial numbers, vintage, standard, methodology
+
+## Key Features
+
+### Authentication System
+- **Registration**: Email validation, organization details, role assignment, email verification required
+- **Login**: JWT token generation, account lockout protection, last login tracking
+- **Email Verification**: Token-based email verification with resend capability, HTML email templates
+- **Password Reset**: Secure token-based password reset flow with email notifications
+- **Profile Management**: Update user details, change password, organization management
+
+### Project Management
+- **Project Registration**: Complete project lifecycle from draft to completion
+- **Credit Tracking**: Real-time tracking of credit generation, issuance, trading, retirement
+- **Verification Workflow**: Multi-stage verification with validator assignment and certification bodies
+- **Document Management**: Upload and manage project documents with categorization
+- **Status Tracking**: Visual status indicators and progress tracking through project lifecycle
+- **Location Tracking**: Geographic coordinates and address management
+- **Financial Tracking**: Project costs, funding sources, expected revenue
+
+### Dashboard & Analytics
+- **Statistics**: Total projects, credits issued, credits traded, revenue tracking
+- **Project Overview**: User's projects with status and credit information
+- **Quick Actions**: Common tasks and navigation shortcuts
+- **Real-time Data**: Live updates from database or mock data fallback
+- **Charts**: Data visualization with Recharts for analytics
+
+### Email System
+- **Verification Emails**: HTML email templates for account verification
+- **Password Reset**: Secure password reset email notifications
+- **Welcome Emails**: User onboarding email communications
+- **SMTP Configuration**: Configurable email service (Gmail, custom SMTP)
+
+### Security Features
+- **Password Security**: bcrypt hashing with 12 salt rounds
+- **JWT Authentication**: Secure token-based authentication with expiration
+- **Rate Limiting**: API request rate limiting (100 requests per 15 minutes)
+- **Input Validation**: Comprehensive input validation and sanitization with express-validator
+- **Account Protection**: Login attempt tracking and account lockout (5 attempts, 2-hour lockout)
+- **CORS Protection**: Cross-origin request security with configurable origins
+- **Helmet Security**: Security headers for XSS, CSRF protection
+- **File Upload Security**: Multer-based secure file upload handling
+
+## API Endpoints
+
+### Authentication Routes (/api/auth)
+- `POST /register` - User registration with validation and email verification
+- `POST /login` - User authentication with JWT token generation
+- `POST /verify-email` - Email verification with token validation
+- `POST /resend-verification` - Resend verification email
+- `POST /forgot-password` - Password reset request with email notification
+- `POST /reset-password` - Password reset confirmation
+- `GET /me` - Get current user profile (protected)
+- `PUT /profile` - Update user profile (protected)
+- `PUT /change-password` - Change password (protected)
+
+### Project Routes (/api/projects)
+- `GET /` - Get all projects (public, with database fallback)
+- `GET /my-projects` - Get user's projects (protected)
+
+### Dashboard Routes (/api/dashboard)
+- `GET /stats` - Get dashboard statistics (protected)
+- `GET /recent-projects` - Get user's recent projects (protected)
+
+### Health Check
+- `GET /api/health` - API health status and timestamp
+
+## Fallback System
+The application includes a sophisticated fallback system:
+- **Mock Data**: In-memory data store when MongoDB unavailable
+- **Graceful Degradation**: Application continues to function without database
+- **Demo Mode**: Pre-populated demo data for testing (demo@carbonregistry.gov.in / demo123)
+- **Database Detection**: Automatic switching between real and mock data
+- **Seamless Experience**: Users can test functionality without database setup
+
+## Environment Configuration
+Required environment variables:
+- `MONGODB_URI` - MongoDB connection string (mongodb://localhost:27017/carbon-registry)
+- `JWT_SECRET` - JWT signing secret (long random string)
+- `FRONTEND_URL` - Frontend URL for CORS (http://localhost:5173)
+- `NODE_ENV` - Environment mode (development/production)
+- `PORT` - Server port (default 5000)
+
+Optional email configuration:
+- `EMAIL_HOST` - SMTP host (smtp.gmail.com)
+- `EMAIL_PORT` - SMTP port (587)
+- `EMAIL_USER` - SMTP username
+- `EMAIL_PASS` - SMTP password/app password
+- `EMAIL_FROM` - From email address
+
+## Development Workflow
+1. **Backend**: `npm run dev` (nodemon auto-restart on changes)
+2. **Frontend**: `npm run dev` (Vite dev server with HMR)
+3. **Database**: MongoDB local installation or MongoDB Atlas cloud
+4. **Seeding**: `npm run seed` for demo data population
+5. **Email**: Configure SMTP settings for email functionality
+
+## Dependencies
+
+### Backend Dependencies
+- **express**: Web framework
+- **mongoose**: MongoDB ODM
+- **bcryptjs**: Password hashing
+- **jsonwebtoken**: JWT token handling
+- **nodemailer**: Email sending
+- **cors**: Cross-origin resource sharing
+- **dotenv**: Environment variable loading
+- **express-rate-limit**: API rate limiting
+- **helmet**: Security headers
+- **express-validator**: Input validation
+- **multer**: File upload handling
+- **uuid**: UUID generation
+- **crypto**: Cryptographic functions
+
+### Frontend Dependencies
+- **react**: UI framework
+- **react-dom**: React DOM rendering
+- **react-hook-form**: Form management
+- **@radix-ui/react-***: Accessible UI primitives
+- **class-variance-authority**: Component variant management
+- **clsx**: Conditional class names
+- **tailwind-merge**: Tailwind class merging
+- **tailwindcss-animate**: Animation utilities
+- **lucide-react**: Icon library
+- **recharts**: Chart library
+
+### Development Dependencies
+- **typescript**: Type checking
+- **@types/react**: React TypeScript types
+- **@types/react-dom**: React DOM TypeScript types
+- **@typescript-eslint/***: TypeScript ESLint rules
+- **@vitejs/plugin-react**: Vite React plugin
+- **autoprefixer**: CSS autoprefixing
+- **eslint**: Code linting
+- **postcss**: CSS processing
+- **tailwindcss**: Utility-first CSS framework
+- **vite**: Build tool and dev server
+- **nodemon**: Development auto-restart
+
+## Code Patterns
+- **ES Modules**: Modern JavaScript module system with import/export
+- **Async/Await**: Promise-based asynchronous operations throughout
+- **Middleware Pattern**: Express middleware for cross-cutting concerns
+- **Schema Validation**: Mongoose schema validation with custom rules and virtuals
+- **Error Handling**: Centralized error handling with custom error types
+- **TypeScript**: Strict typing with interface definitions and type safety
+- **Component Composition**: React component composition with props and state
+- **Custom Hooks**: Reusable stateful logic with React hooks
+- **CSS-in-JS**: Tailwind utility classes with custom design tokens
+- **Form Validation**: Client and server-side validation with react-hook-form and express-validator
+- **Token-based Auth**: JWT tokens with secure storage and validation
+- **Email Templates**: HTML email templates with dynamic content
+
+## Deployment Considerations
+- **Backend**: Node.js hosting platforms (Railway, Render, Heroku, DigitalOcean)
+- **Frontend**: Static hosting (Vercel, Netlify, Cloudflare Pages)
+- **Database**: MongoDB Atlas (recommended) or self-hosted MongoDB
+- **Environment**: Production environment variables and secure secrets
+- **Security**: HTTPS, secure JWT secrets, CORS configuration
+- **Email**: Production SMTP service configuration
+- **File Storage**: Cloud storage for uploaded documents (AWS S3, Cloudinary)
+
+## Demo Credentials
+- **Email**: demo@carbonregistry.gov.in
+- **Password**: demo123
+- **Role**: Administrator
+
+This system provides a complete carbon credit registry platform with robust authentication, project management, transaction tracking, and email verification capabilities, designed for scalability, security, and maintainability.
