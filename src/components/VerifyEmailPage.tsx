@@ -4,7 +4,7 @@ import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { ScrollReveal } from './ui/scroll-reveal';
-import { Leaf, Mail, CheckCircle, AlertCircle, RefreshCw } from 'lucide-react';
+import { Mail, CheckCircle, AlertCircle, RefreshCw } from 'lucide-react';
 import { Page, User } from '../App';
 import { getApiUrl } from '../lib/api';
 

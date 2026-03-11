@@ -6,7 +6,6 @@ import {
   CheckCircle, 
   Clock, 
   AlertTriangle, 
-  Search,
   FileText,
   MapPin,
   Calendar,
@@ -16,10 +15,10 @@ import {
   ArrowUpRight,
   ArchiveX
 } from 'lucide-react';
+import { colors } from '../lib/designSystem';
 import { Project } from '../lib/projectService';
 import { Transaction } from '../lib/blockchain';
 import { TransactionHistory } from './TransactionHistory';
-import { colors } from '../lib/designSystem';
 
 interface ProjectDetailsModalProps {
   project: Project;

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { Leaf, Lock, AlertCircle, CheckCircle, Eye, EyeOff } from 'lucide-react';
+import { Lock, AlertCircle, CheckCircle, Eye, EyeOff } from 'lucide-react';
 import { Page } from '../App';
 import { getApiUrl } from '../lib/api';
 
